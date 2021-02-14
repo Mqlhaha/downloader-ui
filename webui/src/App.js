@@ -2,6 +2,7 @@ import React from 'react'
 import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, useToasts} from '@geist-ui/react'
 import {Download} from '@geist-ui/react-icons'
 import axios from 'axios'
+import config from './config'
 
 class MainPage extends React.Component{
     constructor(props){
@@ -35,11 +36,7 @@ class MainPage extends React.Component{
             button_msg : 'Done',
             button_type : 'success'
         })
-        let baseUrl = 'localhost'
-        if(process.env.REACT_APP_HOST!=undefined){
-            baseUrl = process.env.REACT_APP_HOST
-            console.log(baseUrl)
-        }
+        let baseUrl = config['baseUrl']
         const url = 'http://'+baseUrl+':21991/submit';
         axios({
             url : url,
