@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
+from downloader import downloader
 
 app = Flask(__name__,static_folder="../webui/build",static_url_path='/')
 app.secret_key='asfgwiejkf'
@@ -12,7 +13,8 @@ def home():
 @app.route('/submit',methods=["POST"])
 def handle_submit():
     data = request.get_json()
-    return 'Success'
+    print(data)
+    return downloader.dl_something(data)
 
 if __name__ == '__main__':
     app.run(
