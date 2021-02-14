@@ -35,7 +35,7 @@ class MainPage extends React.Component{
             button_msg : 'Done',
             button_type : 'success'
         })
-        const url = 'http://127.0.0.1:21991/submit';
+        const url = 'http://localhost:21991/submit';
         axios({
             url : url,
             method: "post",
