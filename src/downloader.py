@@ -15,6 +15,21 @@ class Downloader:
             args_list = ""
             
             if data['dl_backend'] == 'you-get':
+                proxy = data['dl_proxy']
+                if proxy == 'no':
+                    args_list = args_list + "--no-proxy"
+                else:
+                    proxy_host = data['dl_proxy_host']
+                    proxy_port = data['dl_proxy_port']
+                    if proxy == 'http':
+                        args_list = "%s --http-proxy %s:%s"%(args_list,proxy_host,proxy_port)
+                    elif proxy == 'socks':
+                        if data['dl_proxy_username'] !='':
+                            proxy_username = data['dl_proxy_username']
+                            proxy_password = data['dl_proxy_password']
+                            args_list = "%s --socks-proxy %s:%s@%s:%s"%(args_list,proxy_username,proxy_password,proxy_host,proxy_port)
+                        else:
+                            args_list = "%s --socks-proxy %s:%s"%(args_list,proxy_host,proxy_port)
 
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
 
