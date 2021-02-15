@@ -14,7 +14,8 @@ class MainPage extends React.Component{
             dl_extra_settings : 'false',
 
             dl_proxy : 'no',
-            dl_proxy_url : '',
+            dl_proxy_host : '',
+            dl_proxy_port : '',
             dl_proxy_username : '',
             dl_proxy_password : '',
 
@@ -83,7 +84,8 @@ class MainPage extends React.Component{
                 'dl_backend' : this.state.dl_backend,
 
                 'dl_proxy' : this.state.dl_proxy,
-                'dl_proxy_url' : this.state.dl_proxy_url,
+                'dl_proxy_host' : this.state.dl_proxy_host,
+                'dl_proxy_port' : this.state.dl_proxy_port,
                 'dl_proxy_username' : this.state.dl_proxy_username,
                 'dl_proxy_password' : this.state.dl_proxy_password,
             },
@@ -125,8 +127,12 @@ class MainPage extends React.Component{
                                     {this.state.dl_proxy === 'no' ? "" :
                                         <div>
                                             <Spacer y={.5} />
-                                            <Input label="host" type="dl_proxy_url" placeholder="Enter the proxy host"
-                                            value={this.state.dl_proxy_url} onChange={this.handle_input_change}></Input>
+                                            <Input label="host" type="dl_proxy_host" placeholder="Enter the proxy host"
+                                            value={this.state.dl_proxy_host} onChange={this.handle_input_change}></Input>
+                                            <Spacer y={.5} />
+                                            <Input label="port" type="dl_proxy_port" placeholder="Enter the proxy port"
+                                            value={this.state.dl_proxy_port} onChange={this.handle_input_change}
+                                            ></Input>
                                             {this.state.dl_proxy === 'socks' ? 
                                                 <div>
                                                     <Spacer y={.5} />
