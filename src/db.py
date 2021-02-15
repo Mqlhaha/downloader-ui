@@ -65,6 +65,8 @@ class DBController:
         sql = "SELECT url,backend FROM queue WHERE queue.url = \"%s\""%(url)
         res = cursor.execute(sql)
         poped_data = res.fetchone()
+        if poped_data == None or len(poped_data) == 0:
+            return 0
         print(poped_data)
 
         sql = "DELETE FROM queue WHERE queue.url = \"%s\""%(url)
