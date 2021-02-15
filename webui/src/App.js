@@ -80,7 +80,12 @@ class MainPage extends React.Component{
             method: "post",
             data : {
                 'dl_url' : this.state.dl_url,
-                'dl_backend' : this.state.dl_backend
+                'dl_backend' : this.state.dl_backend,
+
+                'dl_proxy' : this.state.dl_proxy,
+                'dl_proxy_url' : this.state.dl_proxy_url,
+                'dl_proxy_username' : this.state.dl_proxy_username,
+                'dl_proxy_password' : this.state.dl_proxy_password,
             },
         })
         
@@ -106,13 +111,13 @@ class MainPage extends React.Component{
                                 <div>
                                     <Divider y={1}/>
                                     <Text p b style={{margin:"1%"}}>Download tool</Text>
-                                    <Select placeholder="select download tool" onChange={this.handle_backend_select}>
+                                    <Select placeholder="select download tool" onChange={this.handle_backend_select} initialValue={this.state.dl_backend}>
                                         <Select.Option value="you-get">you-get</Select.Option>
                                         <Select.Option value="youtube-dl">youtube-dl</Select.Option>
                                     </Select>
                                     <Divider y={1} />
                                     <Text p b style={{margin:"1%"}}>Proxy</Text>
-                                    <Select placeholder="select proxy" onChange={this.handle_proxy_select}>
+                                    <Select placeholder="select proxy" onChange={this.handle_proxy_select} initialValue={this.state.dl_proxy}>
                                         <Select.Option value="http">http proxy</Select.Option>
                                         <Select.Option value="socks">socks proxy</Select.Option>
                                         <Select.Option value="no">no proxy</Select.Option>
