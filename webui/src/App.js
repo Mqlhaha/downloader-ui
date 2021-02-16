@@ -82,6 +82,7 @@ class MainPage extends React.Component{
             data : {
                 'dl_url' : this.state.dl_url,
                 'dl_backend' : this.state.dl_backend,
+                'dl_extra_settings' : this.dl_extra_settings,
 
                 'dl_proxy' : this.state.dl_proxy,
                 'dl_proxy_host' : this.state.dl_proxy_host,

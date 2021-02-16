@@ -13,7 +13,14 @@ class Downloader:
                 #return 'Ignore'
             
             args_list = ""
-            
+
+            if data['dl_extra_settings'] == 'false':
+                bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
+                db_controller.add_url_to_queue(url,'you-get')
+                cmd = "bash %s %s %s"%(bash_file,args_list,url)
+                subprocess.run([cmd],shell=True)
+                return 'Success'
+
             if data['dl_backend'] == 'you-get':
                 proxy = data['dl_proxy']
                 if proxy == 'no':
