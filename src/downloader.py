@@ -30,6 +30,9 @@ class Downloader:
                             args_list = "%s --socks-proxy %s:%s@%s:%s"%(args_list,proxy_username,proxy_password,proxy_host,proxy_port)
                         else:
                             args_list = "%s --socks-proxy %s:%s"%(args_list,proxy_host,proxy_port)
+                    else:
+                        raise Exception("No Proxy mode %s"%proxy)
+
 
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
 
@@ -37,6 +40,33 @@ class Downloader:
                 cmd = "bash %s %s %s"%(bash_file,args_list,url)
                 subprocess.run([cmd],shell=True)
                 return 'Success'
+                
+
+            elif data['dl_backend'] == 'youtube-dl':
+                proxy = data['dl_proxy']
+                if proxy != 'no':
+                    proxy_host = data['dl_proxy_host']
+                    proxy_port = data['dl_proxy_port']
+
+                    if proxy == 'http':
+                        args_list = "%s --proxy http://%s:%s"%(args_list,proxy_host,proxy_port)
+                    elif proxy == 'socks':
+                        if data['dl_proxy_username'] != '':
+                            proxy_username = data['dl_proxy_username']
+                            proxy_password = data['dl_proxy_password']
+                            args_list = "%s --proxy socks5://%s:%s@%s:%s"%(args_list,proxy_username,proxy_password,proxy_host,proxy_port)
+                        else:
+                            args_list = "%s --proxy socks5://%s:%s"%(args_list,proxy_host,proxy_port)
+                    else:
+                        raise Exception("No Proxy mode %s "%proxy)
+                
+                bash_file = os.path.dirname(os.path.abspath(__file__)) + '/youtube-dl.sh'
+                db_controller.add_url_to_queue(url,'youtube-dl')
+                cmd = "bash %s %s %s"%(bash_file,args_list,url)
+                subprocess.run([cmd],shell=True)
+                return 'Success'
+
+
             else:
                 raise Exception('NoBackend')
         except Exception as err:
