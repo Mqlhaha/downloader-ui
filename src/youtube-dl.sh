@@ -6,9 +6,11 @@ if [ $# -eq 0 ]
 then
     echo 'no args is passed!'
 else
-    echo 'passing' $* 'to you-get'
+    echo 'passing' $* 'to youtube-dl'
     URL=${@: -1}
-    youtube-dl -o $PREFIX/dl $*
+    cd $PREFIX/dl 
+    youtube-dl $*
     echo "Download" $URL "is done"
+    cd $PREFIX
 #    python3 $PREFIX/db.py pop $URL
 fi
