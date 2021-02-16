@@ -18,7 +18,7 @@ class MainPage extends React.Component{
                         </Grid>
                         <Grid xs={2} lg={.5}></Grid>
                         <Grid xs={2} lg={.5}></Grid>
-                        <Grid xs={2} lg={10.5}>
+                        <Grid xs={20} lg={10.5}>
                             <Resource></Resource>
                         </Grid>
                         <Grid xs={2} lg={1}></Grid>
