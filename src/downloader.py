@@ -8,9 +8,9 @@ class Downloader:
             if data['dl_url'] == None:
                 raise Exception('NoURL')
             url = data['dl_url']
-            if db_controller.if_url_is_added(url) == True:
-                print('existed!')
-                return 'Ignore'
+            #if db_controller.if_url_is_added(url) == True:
+                #print('existed!')
+                #return 'Ignore'
             
             args_list = ""
             
