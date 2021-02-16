@@ -21,6 +21,12 @@ def handle_submit():
 def handle_list():
     return resource.list_downloaded()
 
+@app.route('/delete',methods=["POST"])
+def handle_delete():
+    data = request.get_json()
+    print(data)
+    return resource.delete_file(data['file_name'])
+
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',

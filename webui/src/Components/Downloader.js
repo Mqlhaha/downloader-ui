@@ -75,7 +75,7 @@ class Downloader extends React.Component{
             button_type : 'success'
         })
         let baseUrl = config['baseUrl']
-        const url = 'http://'+baseUrl+':21991/submit';
+        const url = 'http://'+baseUrl+'/submit';
         axios({
             url : url,
             method: "post",
