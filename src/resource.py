@@ -1,12 +1,30 @@
 import os
 import json
+import psutil
 
 class Resource:
     def list_downloaded(self):
         download_path = os.path.dirname(os.path.abspath(__file__)) + '/dl'
         file_list = os.listdir(download_path)
-        file_list_str = json.dumps(file_list)
-        return file_list_str
+
+        system_info = self.query_system_info()
+
+        ret_obj = {
+            'file_list' : file_list,
+            'system_info' : system_info
+        }
+        ret_str = json.dumps(ret_obj)
+        return ret_str
+
+    def query_system_info(self):
+        ret_obj = {}
+        cur_path = os.path.dirname(os.path.abspath(__file__)) + '/dl'
+        disk_usage_raw = psutil.disk_usage(cur_path)
+        ret_obj = {
+            'disk_usage' : disk_usage_raw.percent
+        }
+
+        return ret_obj
     
     def delete_file(self,path: str):
         file_path = os.path.dirname(os.path.abspath(__file__)) + '/dl/' + path
@@ -20,4 +38,4 @@ class Resource:
 resource = Resource()
 
 if __name__ == '__main__':
-    resource.list_downloaded()
+    print(resource.list_downloaded())

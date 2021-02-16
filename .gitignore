@@ -3,3 +3,5 @@ env
 __pycache__
 database
 dl
+test.py
+test.sh
