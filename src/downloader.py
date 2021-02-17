@@ -13,13 +13,20 @@ class Downloader:
                 #return 'Ignore'
             
             args_list = ""
+            work_path = os.path.dirname(os.path.abspath(__file__)) 
+            dl_root_path = work_path + '/dl'
 
             if data['dl_extra_settings'] == 'false':
-                bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
+                bash_file = work_path + '/you-get.sh'
                 db_controller.add_url_to_queue(url,'you-get')
-                cmd = "bash %s %s %s"%(bash_file,args_list,url)
+                cmd = "bash %s %s %s %s"%(bash_file,dl_root_path,args_list,url)
                 subprocess.run([cmd],shell=True)
                 return 'Success'
+
+            dl_path = dl_root_path
+
+            if data['dl_path'] != '':
+                dl_path = dl_root_path + '/' + data['dl_path']
 
             if data['dl_backend'] == 'you-get':
                 proxy = data['dl_proxy']
@@ -44,7 +51,7 @@ class Downloader:
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
 
                 db_controller.add_url_to_queue(url,'you-get')
-                cmd = "bash %s %s %s"%(bash_file,args_list,url)
+                cmd = "bash %s %s %s %s"%(bash_file,dl_path,args_list,url)
                 subprocess.run([cmd],shell=True)
                 return 'Success'
                 
@@ -69,7 +76,7 @@ class Downloader:
                 
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/youtube-dl.sh'
                 db_controller.add_url_to_queue(url,'youtube-dl')
-                cmd = "bash %s %s %s"%(bash_file,args_list,url)
+                cmd = "bash %s %s %s %s"%(bash_file,dl_path,args_list,url)
                 subprocess.run([cmd],shell=True)
                 return 'Success'
 

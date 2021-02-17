@@ -13,6 +13,8 @@ class Downloader extends React.Component{
             dl_url : '',
             dl_extra_settings : 'false',
 
+            dl_path : '',
+
             dl_proxy : 'no',
             dl_proxy_host : '',
             dl_proxy_port : '',
@@ -84,6 +86,8 @@ class Downloader extends React.Component{
                 'dl_backend' : this.state.dl_backend,
                 'dl_extra_settings' : this.state.dl_extra_settings,
 
+                'dl_path' : this.state.dl_path,
+
                 'dl_proxy' : this.state.dl_proxy,
                 'dl_proxy_host' : this.state.dl_proxy_host,
                 'dl_proxy_port' : this.state.dl_proxy_port,
@@ -110,6 +114,11 @@ class Downloader extends React.Component{
                         <Select.Option value="you-get">you-get</Select.Option>
                         <Select.Option value="youtube-dl">youtube-dl</Select.Option>
                     </Select>
+                    <Divider y={1} />
+                    <Text p b style={{margin:"1%"}}>Download path</Text>
+                    <Input label="path" type="dl_path" placeholder="Enter the relative path"
+                            value={this.state.dl_path} onChange={this.handle_input_change}
+                    />
                     <Divider y={1} />
                     <Text p b style={{margin:"1%"}}>Proxy</Text>
                     <Select placeholder="select proxy" onChange={this.handle_proxy_select} initialValue={this.state.dl_proxy}>
