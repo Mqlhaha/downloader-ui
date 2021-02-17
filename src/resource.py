@@ -5,7 +5,27 @@ import psutil
 class Resource:
     def list_downloaded(self):
         download_path = os.path.dirname(os.path.abspath(__file__)) + '/dl'
-        file_list = os.listdir(download_path)
+
+        def get_file_list(path:str):
+            ret_list = []
+            item_list = os.listdir(path)
+            for item in item_list:
+                my_path = path + '/' + item
+                if os.path.isdir(my_path) == True:
+                    sub_file_list = get_file_list(my_path)
+                    ret_list.append({
+                        'type': 'directory',
+                        'name': item,
+                        'files': sub_file_list
+                    })
+                else:
+                    ret_list.append({
+                        'type': 'file',
+                        'name': item
+                    })
+            return ret_list
+
+        file_list = get_file_list(download_path)
 
         system_info = self.query_system_info()
 

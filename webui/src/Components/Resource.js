@@ -1,7 +1,8 @@
 import React from 'react'
-import {Capacity, Card, Divider, Modal, Text, Tree} from '@geist-ui/react'
+import {Button, Capacity, Card, Divider, Modal, Text, Tree, useToasts} from '@geist-ui/react'
 import axios from 'axios'
 import config from '../config'
+
 
 class Resource extends React.Component{
     constructor(props){
@@ -31,15 +32,15 @@ class Resource extends React.Component{
         }).then(res=>{
             let resource_list = res.data.file_list;
             let system_info = res.data.system_info;
-            let file_list = []
-            resource_list.forEach(element => {
-                file_list.push({
-                    type: 'file',
-                    name: element,
-                })       
-            });
+            //let file_list = []
+            //resource_list.forEach(element => {
+                //file_list.push({
+                    //type: 'file',
+                    //name: element,
+                //})       
+            //});
             this.setState({
-                file_list: file_list,
+                file_list: resource_list,
                 system_info: system_info
             })
             console.log(this.state.system_info)
