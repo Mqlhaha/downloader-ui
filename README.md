@@ -1,6 +1,8 @@
 # downloader-ui
 This is a website based on you-get, youtube-dl and other downloader program. It provide a web ui that's easier for user to download video.
 
+![app](./doc/app.png)
+
 ## Deploy
 ### config
 Before deploying the project, you should first change some settings.
