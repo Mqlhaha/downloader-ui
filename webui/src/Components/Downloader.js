@@ -1,5 +1,5 @@
 import React from 'react'
-import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider} from '@geist-ui/react'
+import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider, Tooltip} from '@geist-ui/react'
 import {Download} from '@geist-ui/react-icons'
 import axios from 'axios'
 import config from '../config'
@@ -163,7 +163,11 @@ class Downloader extends React.Component{
                     }
                     <Divider y={1}/>
                     <Text p b style={{margin:"1%"}}>Other</Text>
-                    <Checkbox initialChecked={this.state.dl_playlist} onClick={this.handle_playlist_check}>target is a playlist</Checkbox>
+                    <Checkbox initialChecked={this.state.dl_playlist} onClick={this.handle_playlist_check}>
+                        <Tooltip text={'Only valid for you-get'}>
+                            target is a playlist
+                        </Tooltip>
+                    </Checkbox>
                     <Divider y={1}/>
                 </div>
                 : 
