@@ -15,6 +15,8 @@ class Downloader extends React.Component{
 
             dl_path : '',
 
+            dl_playlist : false,
+
             dl_proxy : 'no',
             dl_proxy_host : '',
             dl_proxy_port : '',
@@ -30,6 +32,7 @@ class Downloader extends React.Component{
         this.handle_extra_settings = this.handle_extra_settings.bind(this);
         this.handle_backend_select = this.handle_backend_select.bind(this);
         this.handle_proxy_select = this.handle_proxy_select.bind(this);
+        this.handle_playlist_check = this.handle_playlist_check.bind(this);
     }
 
     handle_input_change(event){
@@ -71,6 +74,13 @@ class Downloader extends React.Component{
         })
     }
 
+    handle_playlist_check(){
+        let new_val = ! this.state.dl_playlist;
+        this.setState({
+            dl_playlist : new_val
+        })
+    }
+
     handle_submit(){
         this.setState({
             button_msg : 'Done',
@@ -93,6 +103,8 @@ class Downloader extends React.Component{
                 'dl_proxy_port' : this.state.dl_proxy_port,
                 'dl_proxy_username' : this.state.dl_proxy_username,
                 'dl_proxy_password' : this.state.dl_proxy_password,
+
+                'dl_playlist' : this.state.dl_playlist,
             },
         })
         
@@ -149,6 +161,9 @@ class Downloader extends React.Component{
                             : ""}
                         </div>
                     }
+                    <Divider y={1}/>
+                    <Text p b style={{margin:"1%"}}>Other</Text>
+                    <Checkbox initialChecked={this.state.dl_playlist} onClick={this.handle_playlist_check}>target is a playlist</Checkbox>
                     <Divider y={1}/>
                 </div>
                 : 
