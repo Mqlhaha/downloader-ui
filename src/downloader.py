@@ -47,6 +47,8 @@ class Downloader:
                     else:
                         raise Exception("No Proxy mode %s"%proxy)
 
+                if data['dl_playlist'] == True:
+                    args_list = "%s --playlist "%(args_list)
 
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/you-get.sh'
 
@@ -73,6 +75,9 @@ class Downloader:
                             args_list = "%s --proxy socks5://%s:%s"%(args_list,proxy_host,proxy_port)
                     else:
                         raise Exception("No Proxy mode %s "%proxy)
+
+                if data['dl_playlist'] == True:
+                    args_list = '%s --yes-playlist '%(args_list)
                 
                 bash_file = os.path.dirname(os.path.abspath(__file__)) + '/youtube-dl.sh'
                 db_controller.add_url_to_queue(url,'youtube-dl')
