@@ -2,6 +2,12 @@ import React from 'react'
 import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider} from '@geist-ui/react'
 import Downloader from './Components/Downloader'
 import Resource from './Components/Resource'
+import Player from './Components/Player'
+
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom'
 
 class MainPage extends React.Component{
     render(){
@@ -34,7 +40,14 @@ class App extends React.Component{
         return(
             <GeistProvider>
                 <CssBaseline />
-                <MainPage />
+                <Router>
+                    <Route exact path='/'>
+                        <MainPage />
+                    </Route>
+                    <Route path="/player">
+                        <Player />
+                    </Route>
+                </Router>
             </GeistProvider>
         )
     }

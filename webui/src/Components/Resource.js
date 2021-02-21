@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Capacity, Card, Divider, Modal, Text, Tree, useToasts} from '@geist-ui/react'
 import axios from 'axios'
 import config from '../config'
+import {Redirect} from 'react-router-dom'
 
 
 class Resource extends React.Component{
@@ -14,13 +15,15 @@ class Resource extends React.Component{
             system_info : {
                 'disk_usage' : 100,
             },
+
+            redirect_to_file : false,
         }
 
         this.fetch_list_data = this.fetch_list_data.bind(this);
         this.handle_click_file = this.handle_click_file.bind(this);
         this.close_modal = this.close_modal.bind(this);
+        this.play_file = this.play_file.bind(this);
         this.delete_file = this.delete_file.bind(this);
-
     }
 
     fetch_list_data(){
@@ -39,12 +42,16 @@ class Resource extends React.Component{
                     //name: element,
                 //})       
             //});
-            this.setState({
-                file_list: resource_list,
-                system_info: system_info
-            })
-            console.log(this.state.system_info)
+            if(this.state.redirect_to_file != true){
+                this.setState({
+                    file_list: resource_list,
+                    system_info: system_info,
+                    redirect_to_file: false,
+                })
+            }
+
         })
+        
     }
 
     handle_click_file(path){
@@ -56,7 +63,13 @@ class Resource extends React.Component{
 
     close_modal(){
         this.setState({
-            modal_open : false
+            modal_open: false
+        })
+    }
+
+    play_file(){
+        this.setState({
+            redirect_to_file : true,
         })
     }
 
@@ -79,7 +92,11 @@ class Resource extends React.Component{
     }
 
     render(){
-        console.log(this.state.system_info["disk_usage"])
+        if(this.state.redirect_to_file === true){
+            return(
+                <Redirect to='/player'></Redirect>
+            )
+        }
         return(
             <Card shadow style={{textAlign:"center"}}>
                 <Card.Body>
@@ -89,7 +106,7 @@ class Resource extends React.Component{
                     </Tree>
                     <Modal open={this.state.modal_open} onClose={this.close_modal}>
                         <Modal.Subtitle>{this.state.current_path}</Modal.Subtitle>
-                        <Modal.Action disabled>Play</Modal.Action>
+                        <Modal.Action onClick={this.play_file}>Play</Modal.Action>
                         <Modal.Action passive onClick={this.delete_file}>Delete</Modal.Action>
                     </Modal>
                 </Card.Body>
