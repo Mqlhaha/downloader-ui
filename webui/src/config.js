@@ -1,5 +1,9 @@
+function get_host_ip(){
+    return window.location.hostname;
+}
+
 const config = {
-    baseUrl : "localhost:21991"
+    baseUrl : get_host_ip() + ":21991"
 }
 
 export default config;
