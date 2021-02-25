@@ -4,7 +4,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  && \
 mkdir /dl
 
-RUN apk --update add bash npm nodejs ffmpeg gcc linux-headers musl-dev\ 
+RUN apk --update add bash npm nodejs ffmpeg gcc linux-headers musl-dev wget\ 
 && npm config set registry https://registry.npm.taobao.org
 WORKDIR /dl
 COPY . .
