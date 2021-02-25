@@ -41,3 +41,12 @@ to build the image. Then run
 docker run -d --name downloader -v ${PATH/TO/YOU/VOL}:/dl/src/dl -p 21991:21991 --restart always downloader
 ```
 to run the container.
+
+## Usage
+Currently the project supports three kinds of download tools. 
+
+For you-get you just need to fill every options and click download.
+
+For youtube-dl you should notice that playlist function is unable to set.
+
+And for wget, socks proxy is also useless.
