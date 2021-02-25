@@ -49,4 +49,8 @@ For you-get you just need to fill every options and click download.
 
 For youtube-dl you should notice that playlist function is unable to set.
 
-And for wget, socks proxy is also useless.
+And for wget, socks proxy is also useless. But you can enable ```Force CMD args``` to ignore all settings in the web except that in ```cmd args```, and that performs just like 
+```
+wget $(CMD ARGS)
+```
+Then you can do anything using wget.
