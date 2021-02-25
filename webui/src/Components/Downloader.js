@@ -1,6 +1,6 @@
 import React from 'react'
 import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider, Tooltip} from '@geist-ui/react'
-import {Download} from '@geist-ui/react-icons'
+import {Check, Download} from '@geist-ui/react-icons'
 import axios from 'axios'
 import config from '../config'
 
@@ -23,16 +23,21 @@ class Downloader extends React.Component{
             dl_proxy_username : '',
             dl_proxy_password : '',
 
+            dl_wget_filename : '',
+            dl_wget_cmdargs : '',
+            dl_wget_force_args : false,
 
             button_msg : 'Download',
             button_type : 'secondary'
         }
         this.handle_input_change = this.handle_input_change.bind(this);
+
         this.handle_submit = this.handle_submit.bind(this);
         this.handle_extra_settings = this.handle_extra_settings.bind(this);
         this.handle_backend_select = this.handle_backend_select.bind(this);
         this.handle_proxy_select = this.handle_proxy_select.bind(this);
         this.handle_playlist_check = this.handle_playlist_check.bind(this);
+        this.handle_wget_force_args = this.handle_wget_force_args.bind(this);
     }
 
     handle_input_change(event){
@@ -81,6 +86,13 @@ class Downloader extends React.Component{
         })
     }
 
+    handle_wget_force_args(key){
+        let new_val = ! this.state.dl_wget_force_args;
+        this.setState({
+            dl_wget_force_args : new_val,
+        })
+    }
+
     handle_submit(){
         this.setState({
             button_msg : 'Done',
@@ -105,6 +117,10 @@ class Downloader extends React.Component{
                 'dl_proxy_password' : this.state.dl_proxy_password,
 
                 'dl_playlist' : this.state.dl_playlist,
+
+                'dl_wget_filename' : this.state.dl_wget_filename,
+                'dl_wget_cmdargs' : this.state.dl_wget_cmdargs,
+                'dl_wget_force_args' : this.state.dl_wget_force_args,
             },
         })
         
@@ -125,6 +141,7 @@ class Downloader extends React.Component{
                     <Select placeholder="select download tool" onChange={this.handle_backend_select} initialValue={this.state.dl_backend}>
                         <Select.Option value="you-get">you-get</Select.Option>
                         <Select.Option value="youtube-dl">youtube-dl</Select.Option>
+                        <Select.Option value="wget" >wget</Select.Option>
                     </Select>
                     <Divider y={1} />
                     <Text p b style={{margin:"1%"}}>Download path</Text>
@@ -162,8 +179,28 @@ class Downloader extends React.Component{
                         </div>
                     }
                     <Divider y={1}/>
+                    {this.state.dl_backend === "wget" ?
+                    <div>
+                        <Text p b>Wget settings</Text>
+                        <Input label="filename" type="dl_wget_filename" placeholder="filename for wget"
+                            value={this.state.dl_wget_filename} onChange={this.handle_input_change}
+                        />
+                        <Spacer y={.5} />
+                        <Input label="cmd args" type="dl_wget_cmdargs" placeholder="command line args for wget"
+                            value={this.state.dl_wget_cmdargs} onChange={this.handle_input_change}/>
+                        <Spacer y={.5} />
+                        <Checkbox initialChecked={this.state.dl_wget_force_args} 
+
+                        onClick={this.handle_wget_force_args} >
+                            <Tooltip text={'if enabled, all args will be ignored except cmd args'}>
+                                Force CMD args
+                            </Tooltip>
+                        </Checkbox>
+                        <Divider y={1} />
+                    </div>
+                    :""}
                     <Text p b style={{margin:"1%"}}>Other</Text>
-                    <Checkbox initialChecked={this.state.dl_playlist} onClick={this.handle_playlist_check}>
+                    <Checkbox initialChecked={this.state.dl_playlist} onClick={this.handle_playlist_check} disabled={!(this.state.dl_backend === 'you-get')}>
                         <Tooltip text={'Only valid for you-get'}>
                             target is a playlist
                         </Tooltip>

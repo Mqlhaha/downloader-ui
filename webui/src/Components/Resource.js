@@ -106,7 +106,7 @@ class Resource extends React.Component{
                     </Tree>
                     <Modal open={this.state.modal_open} onClose={this.close_modal}>
                         <Modal.Subtitle>{this.state.current_path}</Modal.Subtitle>
-                        <Modal.Action onClick={this.play_file}>Play</Modal.Action>
+                        <Modal.Action onClick={this.play_file} disabled={true}>Play</Modal.Action>
                         <Modal.Action passive onClick={this.delete_file}>Delete</Modal.Action>
                     </Modal>
                 </Card.Body>
