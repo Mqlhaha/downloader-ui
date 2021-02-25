@@ -3,6 +3,7 @@ import {Button, Capacity, Card, Divider, Modal, Text, Tree, useToasts} from '@ge
 import axios from 'axios'
 import config from '../config'
 import {Redirect} from 'react-router-dom'
+import { HardDrive, RefreshCw } from '@geist-ui/react-icons'
 
 
 class Resource extends React.Component{
@@ -111,8 +112,13 @@ class Resource extends React.Component{
                     </Modal>
                 </Card.Body>
                 <Card.Footer style={{textAlign:"center"}}>
-                    <Text style={{width:"50%"}}>Disk Usage</Text>
+                    <HardDrive style={{width:"20%"}}/>
                     <Capacity value={this.state.system_info['disk_usage']} style={{width:"50%"}}/>
+                    <div style={{textAlign:"right",width:"50%"}}>
+                        <Button size="mini" onClick={this.fetch_list_data}>
+                            Refresh
+                        </Button>
+                    </div>
                 </Card.Footer>
             </Card>
         )
