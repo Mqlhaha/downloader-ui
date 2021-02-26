@@ -36,7 +36,12 @@ Run
 ```
 docker build . -t downloader
 ```
-to build the image. Then run
+to build the image. If you live in China, maybe you need to build in this way to accelerate your building process :
+```
+docker build . -t downloader -f Dockerfile.cn
+```
+
+Then run
 ```
 docker run -d --name downloader -v ${PATH/TO/YOU/VOL}:/dl/src/dl -p 21991:21991 --restart always downloader
 ```
