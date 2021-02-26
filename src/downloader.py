@@ -29,8 +29,7 @@ class Downloader:
 
         db_controller.add_url_to_queue(url,'you-get')
         cmd = "bash %s %s %s %s"%(bash_file,dl_path,args_list,url)
-        subprocess.run([cmd],shell=True)
-        return 'Success'
+        return cmd
 
     def youtube_dl_backend(self, data, url:str, dl_path: str, args_list: str):
         proxy = data['dl_proxy']
@@ -56,19 +55,15 @@ class Downloader:
         bash_file = os.path.dirname(os.path.abspath(__file__)) + '/youtube-dl.sh'
         db_controller.add_url_to_queue(url,'youtube-dl')
         cmd = "bash %s %s %s %s"%(bash_file,dl_path,args_list,url)
-        subprocess.run([cmd],shell=True)
-        return 'Success'
+        return cmd
 
     def wget_backend(self,data, url:str, dl_path: str, args_list: str):
         if data['dl_wget_force_args']:
-            args_list = data['dl_wget_cmdargs']
+            args_list = data['dl_cmdargs']
             bash_file = os.path.dirname(os.path.abspath(__file__)) + '/wget.sh'
             cmd = "bash %s %s"%(bash_file,args_list)
             subprocess.run([cmd],shell=True)
             return 'Success'
-
-        if data['dl_wget_cmdargs'] != '':
-            args_list = "%s %s "%(args_list,data['dl_wget_cmdargs'])
 
         proxy = data['dl_proxy']
         if proxy != 'no':
@@ -81,8 +76,7 @@ class Downloader:
         output_file = "-O %s/%s"%(dl_path,data['dl_wget_filename'])
         bash_file = os.path.dirname(os.path.abspath(__file__)) + '/wget.sh'
         cmd = "bash %s %s %s %s"%(bash_file,output_file,args_list,url)
-        subprocess.run([cmd],shell=True)
-        return 'Success'
+        return cmd
 
     def dl_something(self,data):
         try:
@@ -110,14 +104,19 @@ class Downloader:
             if data['dl_path'] != '':
                 dl_path = dl_root_path + '/' + data['dl_path']
 
+            if data['dl_cmdargs'] != '':
+                args_list = "%s %s" % (args_list,data['dl_cmdargs'])
+
+            cmd = "echo NO CMD GOT!"
             if data['dl_backend'] == 'you-get':
-                return self.you_get_backend(data,url,dl_path,args_list)
+                cmd = self.you_get_backend(data,url,dl_path,args_list)
             elif data['dl_backend'] == 'youtube-dl':
-                return self.youtube_dl_backend(data,url,dl_path,args_list)
+                cmd = self.youtube_dl_backend(data,url,dl_path,args_list)
             elif data['dl_backend'] == 'wget':
-                return self.wget_backend(data,url,dl_path,args_list)
+                cmd = self.wget_backend(data,url,dl_path,args_list)
             else:
                 raise Exception('NoBackend')
+            subprocess.run([cmd],shell=True)
         except Exception as err:
             if err.args == 'NoBackend':
                 print('no backend found')
