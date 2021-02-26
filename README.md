@@ -10,7 +10,7 @@ Before deploying the project, you should first change some settings.
 In ```webui/src/config.js```, you should change ```baseUrl``` to the ip:port or domain name of the host.
 
 ### manual
-The web use ```Python Flask``` as backend and ```React``` as frontend. So ensure the installation of ```Python``` and  ```npm```. Also, the projcet relies on ```wget```, so make sure you install it.
+The web use ```Python Flask``` as backend and ```React``` as frontend. So ensure the installation of ```Python``` and  ```npm```. Also, the project relies on ```wget```, so make sure you install it.
 
 In ```src/``` run 
 ```
