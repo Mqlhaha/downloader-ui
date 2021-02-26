@@ -10,7 +10,7 @@ Before deploying the project, you should first change some settings.
 In ```webui/src/config.js```, you should change ```baseUrl``` to the ip:port or domain name of the host.
 
 ### manual
-The web use ```Python Flask``` as backend and ```React``` as frontend. So ensure the installation of ```Python``` and  ```npm```.
+The web use ```Python Flask``` as backend and ```React``` as frontend. So ensure the installation of ```Python``` and  ```npm```. Also, the projcet relies on ```wget```, so make sure you install it.
 
 In ```src/``` run 
 ```
@@ -36,7 +36,12 @@ Run
 ```
 docker build . -t downloader
 ```
-to build the image. Then run
+to build the image. If you live in China, maybe you need to build in this way to accelerate your building process :
+```
+docker build . -t downloader -f Dockerfile.cn
+```
+
+Then run
 ```
 docker run -d --name downloader -v ${PATH/TO/YOU/VOL}:/dl/src/dl -p 21991:21991 --restart always downloader
 ```
