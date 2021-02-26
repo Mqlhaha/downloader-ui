@@ -2,6 +2,10 @@ import { Grid, Page } from '@geist-ui/react';
 import React from 'react'
 import ReactPlayer from 'react-player'
 
+/*
+This component is designed for a quick review of video.
+It's currently not used. (2021/2/26)
+*/
 class Player extends React.Component{
     constructor(props){
         super(props)
