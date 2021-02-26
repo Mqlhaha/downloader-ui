@@ -1,6 +1,6 @@
 import React from 'react'
-import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider, Tooltip} from '@geist-ui/react'
-import {Check, Download} from '@geist-ui/react-icons'
+import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button, Select, Checkbox, Divider, Tooltip, Description, Container} from '@geist-ui/react'
+import {AlertCircle, Check, Download, ToggleLeft} from '@geist-ui/react-icons'
 import axios from 'axios'
 import config from '../config'
 
@@ -12,6 +12,8 @@ class Downloader extends React.Component{
             dl_backend : 'you-get',
             dl_url : '',
             dl_extra_settings : 'false',
+            dl_extra_args : '',
+            dl_cmdargs : '',
 
             dl_path : '',
 
@@ -24,7 +26,6 @@ class Downloader extends React.Component{
             dl_proxy_password : '',
 
             dl_wget_filename : '',
-            dl_wget_cmdargs : '',
             dl_wget_force_args : false,
 
             button_msg : 'Download',
@@ -107,6 +108,7 @@ class Downloader extends React.Component{
                 'dl_url' : this.state.dl_url,
                 'dl_backend' : this.state.dl_backend,
                 'dl_extra_settings' : this.state.dl_extra_settings,
+                'dl_cmdargs' : this.state.dl_cmdargs,
 
                 'dl_path' : this.state.dl_path,
 
@@ -119,7 +121,6 @@ class Downloader extends React.Component{
                 'dl_playlist' : this.state.dl_playlist,
 
                 'dl_wget_filename' : this.state.dl_wget_filename,
-                'dl_wget_cmdargs' : this.state.dl_wget_cmdargs,
                 'dl_wget_force_args' : this.state.dl_wget_force_args,
             },
         })
@@ -186,13 +187,10 @@ class Downloader extends React.Component{
                             value={this.state.dl_wget_filename} onChange={this.handle_input_change}
                         />
                         <Spacer y={.5} />
-                        <Input label="cmd args" type="dl_wget_cmdargs" placeholder="command line args for wget"
-                            value={this.state.dl_wget_cmdargs} onChange={this.handle_input_change}/>
-                        <Spacer y={.5} />
                         <Checkbox initialChecked={this.state.dl_wget_force_args} 
 
                         onClick={this.handle_wget_force_args} >
-                            <Tooltip text={'if enabled, all args will be ignored except cmd args'}>
+                            <Tooltip text={'if enabled, all args will be ignored except cmd args. So you can use wget like command lines'}>
                                 Force CMD args
                             </Tooltip>
                         </Checkbox>
@@ -205,6 +203,10 @@ class Downloader extends React.Component{
                             target is a playlist
                         </Tooltip>
                     </Checkbox>
+                    <Spacer y={.5} />
+                    <Input label="cmd args" type="dl_cmdargs" placeholder="extra args passed to cmd"
+                            value={this.state.dl_cmdargs} onChange={this.handle_input_change}
+                    />
                     <Divider y={1}/>
                 </div>
                 : 

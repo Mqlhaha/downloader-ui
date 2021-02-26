@@ -61,14 +61,11 @@ class Downloader:
 
     def wget_backend(self,data, url:str, dl_path: str, args_list: str):
         if data['dl_wget_force_args']:
-            args_list = data['dl_wget_cmdargs']
+            args_list = data['dl_cmdargs']
             bash_file = os.path.dirname(os.path.abspath(__file__)) + '/wget.sh'
             cmd = "bash %s %s"%(bash_file,args_list)
             subprocess.run([cmd],shell=True)
             return 'Success'
-
-        if data['dl_wget_cmdargs'] != '':
-            args_list = "%s %s "%(args_list,data['dl_wget_cmdargs'])
 
         proxy = data['dl_proxy']
         if proxy != 'no':
@@ -109,6 +106,9 @@ class Downloader:
 
             if data['dl_path'] != '':
                 dl_path = dl_root_path + '/' + data['dl_path']
+
+            if data['dl_cmdargs'] != '':
+                args_list = "%s %s" % (args_list,data['dl_cmdargs'])
 
             if data['dl_backend'] == 'you-get':
                 return self.you_get_backend(data,url,dl_path,args_list)
