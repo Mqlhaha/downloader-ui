@@ -29,7 +29,7 @@ class Resource extends React.Component{
 
     fetch_list_data(){
         const baseUrl = config['baseUrl']
-        const fetch_url = 'http://' + baseUrl + '/list'
+        const fetch_url = 'http://' + baseUrl + '/list_resources'
         axios({
             url:fetch_url,
             method:'get'

@@ -3,6 +3,7 @@ import {GeistProvider,CssBaseline, Page,Text, Grid, Card, Input, Spacer, Button,
 import Downloader from './Components/Downloader'
 import Resource from './Components/Resource'
 import Player from './Components/Player'
+import Tasks from './Components/Tasks'
 
 import {
     BrowserRouter as Router,
@@ -28,6 +29,11 @@ class MainPage extends React.Component{
                             <Resource></Resource>
                         </Grid>
                         <Grid xs={2} lg={1}></Grid>
+                        <Grid xs={2} lg={2}/>
+                        <Grid xs={20} lg={20}>
+                            <Tasks />
+                        </Grid>
+                        <Grid xs={2} lg={20}/ >
                     </Grid.Container>
                 </Page.Body>
             </Page>

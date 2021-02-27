@@ -1,5 +1,6 @@
 import os
 import subprocess
+from task import task_queue
 from db import db_controller 
 
 class Downloader:
@@ -96,7 +97,7 @@ class Downloader:
                 bash_file = work_path + '/you-get.sh'
                 db_controller.add_url_to_queue(url,'you-get')
                 cmd = "bash %s %s %s %s"%(bash_file,dl_root_path,args_list,url)
-                subprocess.run([cmd],shell=True)
+                task_queue.add_task(cmd,url)
                 return 'Success'
 
             dl_path = dl_root_path
@@ -116,7 +117,9 @@ class Downloader:
                 cmd = self.wget_backend(data,url,dl_path,args_list)
             else:
                 raise Exception('NoBackend')
-            subprocess.run([cmd],shell=True)
+            
+            task_queue.add_task(cmd,url)
+
         except Exception as err:
             if err.args == 'NoBackend':
                 print('no backend found')
