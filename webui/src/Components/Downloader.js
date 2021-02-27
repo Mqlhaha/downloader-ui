@@ -65,7 +65,6 @@ class Downloader extends React.Component{
                 dl_extra_settings : 'false'
             })
         }
-        console.log('toggle!')
     }
 
     handle_backend_select(val){
