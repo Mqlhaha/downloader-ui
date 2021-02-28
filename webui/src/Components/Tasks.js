@@ -3,6 +3,7 @@ import axios from 'axios'
 import config from '../config'
 import { Button, ButtonGroup, Card, Container, Description, Divider, Dot, Loading, Modal, Spacer, Spinner, Table, Text } from '@geist-ui/react'
 import { Loader } from '@geist-ui/react-icons'
+import io from 'socket.io-client'
 
 class Tasks extends React.Component{
     constructor(props){
@@ -34,16 +35,20 @@ class Tasks extends React.Component{
         })
 
         const baseUrl = config['baseUrl']
-        const fetch_url = 'http://' + baseUrl +'/list_tasks'
-        axios({
-            url : fetch_url,
-            method: "POST",
-            data : {
-                "index" : index
-            }
-        }).then(req =>{
+        const fetch_url = 'ws://' + baseUrl
+        
+        var sock = io(fetch_url)
+        sock.on("connect", ()=>{
+            console.log("connect!")
+        })
+
+        sock.emit('task_log',{'index':index})
+
+        sock.on("trans_task_log",(data)=>{
+            let new_log = this.state.log_text + '\n' + data
+            console.log(data)
             this.setState({
-                log_text : req.data
+                log_text : new_log
             })
         })
     }

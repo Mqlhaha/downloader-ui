@@ -1,5 +1,6 @@
 import subprocess
 import json
+from flask_socketio import emit
 
 class Task:
     cmd :str = ""
@@ -19,11 +20,11 @@ class Task:
 
     def fetch_log(self):
         if self.pipe.poll() != None:
-            return "Process is stopped!"
-        ret_text = ""
+            emit("process terminate")
         for line in self.pipe.stdout:
-            ret_text = ret_text + "\n" + line 
-        return ret_text
+            print(line)
+            emit("trans_task_log",line)
+        emit("download done")
 
 class Task_queue:
     queue = []
@@ -37,7 +38,7 @@ class Task_queue:
         new_task = Task(cmd,url)
         self.queue.append(new_task)
     
-    def fetch_single_task(self,index):
+    def fetch_single_task(self,index: int):
         return self.queue[index].fetch_log()
 
 
