@@ -1,6 +1,7 @@
 PREFIX="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo 'working in '$PREFIX
 echo 'passing full args '$*
+mkdir -p $PREFIX/dl
 mkdir -p $1
 echo 'downloading to '$1
 

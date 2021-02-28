@@ -22,7 +22,7 @@ class Task:
         if self.pipe.poll() != None:
             emit("process terminate")
         for line in self.pipe.stdout:
-            print(line)
+            print("[DL_LOG]: %s"%line)
             emit("trans_task_log",line)
         emit("download done")
 
