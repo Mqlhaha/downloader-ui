@@ -42,7 +42,7 @@ class Tasks extends React.Component{
             console.log("connect!")
         })
 
-        sock.emit('task_log',{'index':index})
+        //sock.emit('task_log',{'index':index})
 
         sock.on("trans_task_log",(data)=>{
             let new_log = this.state.log_text + '\n' + data
@@ -51,6 +51,8 @@ class Tasks extends React.Component{
                 log_text : new_log
             })
         })
+
+        sock.emit('task_log',{'index':index})
     }
 
     modal_closer(){
