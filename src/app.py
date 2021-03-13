@@ -43,7 +43,6 @@ def handle_delete():
 @socketio_app.on('task_log')
 def handle_task_log(data):
     index = data['index']
-    print("get index "+str(index) )
     task_queue.fetch_single_task(index)
 
 if __name__ == '__main__':
